@@ -1,6 +1,6 @@
 interface ReactTimePickerProps {}
 
-const ReactTimePicker = () => {
+const ReactTimePicker = ({}: ReactTimePickerProps) => {
   return null;
 };
 
