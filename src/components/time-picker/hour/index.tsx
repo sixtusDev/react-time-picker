@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactTimePickerProps } from "..";
-import { validateHour } from "../../../utils";
+import { regex, validateHour } from "../../../utils";
 
 import "./index.css";
 
@@ -10,7 +10,6 @@ const Hour = ({ format }: HourProps) => {
   const [hour, setHour] = React.useState<string>("");
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const regex = /^[0-9\b]+$/;
     const { value } = e.target;
     if (value === "") {
       return setHour(value);

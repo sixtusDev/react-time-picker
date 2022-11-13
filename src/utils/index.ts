@@ -1,5 +1,7 @@
 import { ReactTimePickerProps } from "../components/time-picker";
 
+export const regex = /^[0-9\b]+$/;
+
 interface TimeFormat
   extends Pick<ReactTimePickerProps, "withSeconds" | "format"> {}
 
@@ -26,4 +28,12 @@ export const validateHour = ({ hour, format, value }: ValidateHour) => {
     return true;
   }
   return Number(value) <= Number(format);
+};
+
+interface IsValideMinute {
+  value: string;
+}
+
+export const isValidMinute = ({ value }: IsValideMinute) => {
+  return Number(value) < 60;
 };
