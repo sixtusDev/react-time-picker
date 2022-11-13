@@ -1,15 +1,23 @@
 import React from "react";
+import Hour from "./hour";
 
-interface ReactTimePickerProps {
+import "./index.css";
+
+export interface ReactTimePickerProps {
   disabled?: boolean;
   onChange?: (time?: Date) => void;
   value?: Date;
   withSeconds?: boolean;
-  meridiem?: "AM" | "PM";
+  format?: "12" | "24";
 }
 
-const ReactTimePicker = ({}: ReactTimePickerProps) => {
-  return <button>Click me</button>;
+const ReactTimePicker = ({ format = "12" }: ReactTimePickerProps) => {
+  return (
+    <div className="react-time-picker__wrapper">
+      <Hour format={format} />
+      <div style={{ fontSize: "30px" }}>:</div>
+    </div>
+  );
 };
 
 export default ReactTimePicker;
