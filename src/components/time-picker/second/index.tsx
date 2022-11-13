@@ -25,13 +25,13 @@ const Second = ({ second, setTime }: MinuteProps) => {
   return (
     <input
       type="text"
-      className="react-time-picker__second"
       min={0}
       max={60}
       maxLength={2}
       value={second}
       placeholder="--"
       onChange={onChangeHandler}
+      style={{ width: "25%" }}
     />
   );
 };

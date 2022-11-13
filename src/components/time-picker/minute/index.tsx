@@ -25,13 +25,13 @@ const Minute = ({ minute, setTime }: MinuteProps) => {
   return (
     <input
       type="text"
-      className="react-time-picker__hour"
       min={0}
       max={60}
       maxLength={2}
       value={minute}
       placeholder="--"
       onChange={onChangeHandler}
+      style={{ width: "25%" }}
     />
   );
 };

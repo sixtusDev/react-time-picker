@@ -22,13 +22,13 @@ const Hour = ({ format }: HourProps) => {
   return (
     <input
       type="text"
-      className="react-time-picker__hour"
       min={format === "12" ? 1 : 0}
       max={format === "12" ? 12 : 24}
       maxLength={2}
       value={hour}
       placeholder="--"
       onChange={onChangeHandler}
+      style={{ width: "25%" }}
     />
   );
 };

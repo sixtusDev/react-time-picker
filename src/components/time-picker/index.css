@@ -1,4 +1,74 @@
 .react-time-picker__wrapper {
   display: flex;
   align-items: center;
+  position: relative;
+}
+
+.react-time-picker__time-select-area {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  z-index: 100;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+  min-width: 150px;
+}
+
+.react-time-picker__hours-minutes-seconds {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #cccc;
+  width: 100%;
+  height: 250px;
+}
+
+.react-time-picker__hours,
+.react-time-picker__minutes,
+.react-time-picker__seconds {
+  width: 25%;
+  height: inherit;
+  overflow-y: scroll;
+  flex-direction: column;
+  border-right: 1px solid #ccc;
+  text-align: center;
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+.react-time-picker__hour,
+.react-time-picker__minute,
+.react-time-picker__second {
+  /* background={h === time.hours ? "brand.main" : "#fff"}
+  color={h === time.hours ? "#fff" : "#000"}  */
+  cursor: pointer;
+  padding: 6px 0;
+  background-color: red;
+}
+
+.react-time-picker__hour:not(:last-child),
+.react-time-picker__minute:not(:last-child),
+.react-time-picker__second:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+.react-time-picker__minutes {
+}
+
+.react-time-picker__minute {
+}
+
+.react-time-picker__seconds {
+}
+
+.react-time-picker__second {
+}
+
+.react-time-picker__actio-box {
+}
+
+.react-time-picker__hours::-webkit-scrollbar,
+.react-time-picker__minutes::-webkit-scrollbar,
+.react-time-picker__seconds::-webkit-scrollbar {
+  display: none;
 }
