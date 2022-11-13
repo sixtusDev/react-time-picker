@@ -30,10 +30,10 @@ export const validateHour = ({ hour, format, value }: ValidateHour) => {
   return Number(value) <= Number(format);
 };
 
-interface IsValideMinute {
+interface IsValidMinuteOrSecond {
   value: string;
 }
 
-export const isValidMinute = ({ value }: IsValideMinute) => {
+export const isValidMinuteOrSecond = ({ value }: IsValidMinuteOrSecond) => {
   return Number(value) < 60;
 };

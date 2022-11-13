@@ -3,11 +3,11 @@ import { ReactTimePickerProps, Time } from "..";
 import { isValidMinuteOrSecond, regex } from "../../../utils";
 
 interface MinuteProps extends Pick<ReactTimePickerProps, "format"> {
-  minute: string;
+  second?: string;
   setTime: (cb: (value: Time) => Time) => void;
 }
 
-const Minute = ({ minute, setTime }: MinuteProps) => {
+const Second = ({ second, setTime }: MinuteProps) => {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
@@ -17,7 +17,7 @@ const Minute = ({ minute, setTime }: MinuteProps) => {
     ) {
       setTime((prevState: Time) => ({
         ...prevState,
-        minute: value,
+        second: value,
       }));
     }
   };
@@ -25,15 +25,15 @@ const Minute = ({ minute, setTime }: MinuteProps) => {
   return (
     <input
       type="text"
-      className="react-time-picker__hour"
+      className="react-time-picker__second"
       min={0}
       max={60}
       maxLength={2}
-      value={minute}
+      value={second}
       placeholder="--"
       onChange={onChangeHandler}
     />
   );
 };
 
-export default Minute;
+export default Second;
