@@ -20,15 +20,23 @@ export interface Time {
   meridiem?: "AM" | "PM" | "";
 }
 
-const hours = Array.from({ length: 12 }, (_, i) =>
+const hours12 = Array.from({ length: 12 }, (_, i) =>
   i > 8 ? String(i + 1) : `0${i + 1}`
 );
+
+const hours24 = Array.from({ length: 24 }, (_, i) =>
+  i > 8 ? String(i + 1) : `0${i + 1}`
+);
+
 const minutes = Array.from({ length: 60 }, (_, i) =>
   i > 9 ? String(i) : `0${i}`
 );
+
 const seconds = Array.from({ length: 60 }, (_, i) =>
   i > 9 ? String(i) : `0${i}`
 );
+
+const meridiems = ["AM", "PM"];
 
 const ReactTimePicker = ({
   format = "12",
@@ -57,20 +65,33 @@ const ReactTimePicker = ({
       <div className="react-time-picker__time-select-area">
         <div className="react-time-picker__hours-minutes-seconds">
           <div className="react-time-picker__hours">
-            {hours.map((hour) => (
-              <div className="react-time-picker__hour">{hour}</div>
-            ))}
+            {format === "12"
+              ? hours12.map((hour) => (
+                  <div className="react-time-picker__hour">{hour}</div>
+                ))
+              : hours24.map((hour) => (
+                  <div className="react-time-picker__hour">{hour}</div>
+                ))}
           </div>
           <div className="react-time-picker__minutes">
             {minutes.map((minute) => (
               <div className="react-time-picker__minute">{minute}</div>
             ))}
           </div>
-          <div className="react-time-picker__seconds">
-            {seconds.map((second) => (
-              <div className="react-time-picker__second">{second}</div>
-            ))}
-          </div>
+          {withSeconds && (
+            <div className="react-time-picker__seconds">
+              {seconds.map((second) => (
+                <div className="react-time-picker__second">{second}</div>
+              ))}
+            </div>
+          )}
+          {format === "12" && (
+            <div className="react-time-picker__meridiems">
+              {meridiems.map((meridiem) => (
+                <div className="react-time-picker__meridiem">{meridiem}</div>
+              ))}
+            </div>
+          )}
         </div>
         <div className="react-time-picker__actio-box">
           <button>Cancel</button>
