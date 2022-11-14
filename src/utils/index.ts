@@ -37,3 +37,31 @@ interface IsValidMinuteOrSecond {
 export const isValidMinuteOrSecond = ({ value }: IsValidMinuteOrSecond) => {
   return Number(value) < 60;
 };
+
+interface IsValidMeridiem {
+  value: string;
+  meridiem?: string;
+}
+
+export const isValidMeridiem = ({ value, meridiem }: IsValidMeridiem) => {
+  if (
+    meridiem?.length === 1 &&
+    (value.toUpperCase() === "AM" || value.toUpperCase() === "PM")
+  ) {
+    return true;
+  }
+  if (
+    !meridiem?.length &&
+    (value.toUpperCase() === "A" || value.toUpperCase() === "P")
+  ) {
+    return true;
+  }
+  if (
+    meridiem &&
+    meridiem.length &&
+    (value.toUpperCase() === "A" || value.toUpperCase() === "P" || value === "")
+  ) {
+    return true;
+  }
+  return false;
+};

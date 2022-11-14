@@ -5,6 +5,7 @@ import Minute from "./minute";
 import Second from "./second";
 
 import "./index.css";
+import Meridiem from "./meridiem";
 export interface ReactTimePickerProps {
   disabled?: boolean;
   onChange?: (time?: Date) => void;
@@ -17,7 +18,7 @@ export interface Time {
   hour: string;
   minute: string;
   second?: string;
-  meridiem?: "AM" | "PM" | "";
+  meridiem?: string;
 }
 
 const hours12 = Array.from({ length: 12 }, (_, i) =>
@@ -60,6 +61,10 @@ const ReactTimePicker = ({
             <div style={{ fontSize: "30px" }}>:</div>
             <Second second={time.second} setTime={setTime} />
           </>
+        )}
+        &nbsp;
+        {format === "12" && (
+          <Meridiem meridiem={time.meridiem} setTime={setTime} />
         )}
       </div>
       <div className="react-time-picker__time-select-area">
