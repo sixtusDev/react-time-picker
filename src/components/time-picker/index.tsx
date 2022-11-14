@@ -39,6 +39,11 @@ const seconds = Array.from({ length: 60 }, (_, i) =>
 
 const meridiems = ["AM", "PM"];
 
+const activeHandPickerStyle = {
+  backgroundColor: "#0000EE",
+  color: "#fff",
+};
+
 const ReactTimePicker = ({
   format = "12",
   withSeconds = true,
@@ -113,6 +118,9 @@ const ReactTimePicker = ({
               ? hours12.map((hour) => (
                   <div
                     className="react-time-picker__hour"
+                    style={{
+                      ...(hour === time.hour && activeHandPickerStyle),
+                    }}
                     onClick={() => handleTimeSelect("hour", hour)}
                   >
                     {hour}
@@ -121,6 +129,9 @@ const ReactTimePicker = ({
               : hours24.map((hour) => (
                   <div
                     className="react-time-picker__hour"
+                    style={{
+                      ...(hour === time.hour && activeHandPickerStyle),
+                    }}
                     onClick={() => handleTimeSelect("hour", hour)}
                   >
                     {hour}
@@ -131,6 +142,9 @@ const ReactTimePicker = ({
             {minutes.map((minute) => (
               <div
                 className="react-time-picker__minute"
+                style={{
+                  ...(minute === time.minute && activeHandPickerStyle),
+                }}
                 onClick={() => handleTimeSelect("minute", minute)}
               >
                 {minute}
@@ -142,6 +156,9 @@ const ReactTimePicker = ({
               {seconds.map((second) => (
                 <div
                   className="react-time-picker__second"
+                  style={{
+                    ...(second === time.second && activeHandPickerStyle),
+                  }}
                   onClick={() => handleTimeSelect("second", second)}
                 >
                   {second}
@@ -154,6 +171,9 @@ const ReactTimePicker = ({
               {meridiems.map((meridiem) => (
                 <div
                   className="react-time-picker__meridiem"
+                  style={{
+                    ...(meridiem === time.meridiem && activeHandPickerStyle),
+                  }}
                   onClick={() => handleTimeSelect("meridiem", meridiem)}
                 >
                   {meridiem}
@@ -162,9 +182,9 @@ const ReactTimePicker = ({
             </div>
           )}
         </div>
-        <div className="react-time-picker__actio-box">
-          <button>Cancel</button>
-          <button>Ok</button>
+        <div className="react-time-picker__action-box">
+          <div className="react-time-picker__cancel-btn">Cancel</div>
+          <button className="react-time-picker__ok-btn">Ok</button>
         </div>
       </div>
     </div>
