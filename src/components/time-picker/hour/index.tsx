@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactTimePickerProps, Time } from "..";
-import { regex, validateHour } from "../../../utils";
+import { canAddLeadingZero, regex, validateHour } from "../../../utils";
 
 import "./index.css";
 
@@ -27,7 +27,7 @@ const Hour = ({ format, hour, setTime }: HourProps) => {
   };
 
   const onBlurHandler = () => {
-    if (hour.length === 1 && Number(hour) < 10) {
+    if (canAddLeadingZero(hour)) {
       setTime((prevState) => ({
         ...prevState,
         hour: `0${prevState.hour}`,

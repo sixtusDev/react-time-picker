@@ -1,6 +1,10 @@
 import React from "react";
 import { ReactTimePickerProps, Time } from "..";
-import { isValidMinuteOrSecond, regex } from "../../../utils";
+import {
+  canAddLeadingZero,
+  isValidMinuteOrSecond,
+  regex,
+} from "../../../utils";
 
 interface MinuteProps extends Pick<ReactTimePickerProps, "format"> {
   minute: string;
@@ -22,6 +26,15 @@ const Minute = ({ minute, setTime }: MinuteProps) => {
     }
   };
 
+  const onBlurHandler = () => {
+    if (canAddLeadingZero(Number(minute))) {
+      setTime((prevState) => ({
+        ...prevState,
+        minute: `0${prevState.minute}`,
+      }));
+    }
+  };
+
   return (
     <input
       type="text"
@@ -31,6 +44,7 @@ const Minute = ({ minute, setTime }: MinuteProps) => {
       value={minute}
       placeholder="--"
       onChange={onChangeHandler}
+      onBlur={onBlurHandler}
       style={{ width: "25%" }}
     />
   );
