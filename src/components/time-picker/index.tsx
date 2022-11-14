@@ -1,9 +1,11 @@
 import React from "react";
+import { format as formatTime } from "date-fns";
 
 import Hour from "./hour";
 import Minute from "./minute";
 import Second from "./second";
 import Meridiem from "./meridiem";
+import { timeFormat } from "../../utils";
 
 import "./index.css";
 export interface ReactTimePickerProps {
@@ -12,6 +14,7 @@ export interface ReactTimePickerProps {
   value?: Date;
   withSeconds?: boolean;
   format?: "12" | "24";
+  time?: Date;
 }
 
 export interface Time {
@@ -47,6 +50,7 @@ const activeHandPickerStyle = {
 const ReactTimePicker = ({
   format = "12",
   withSeconds = true,
+  time: dateTime,
 }: ReactTimePickerProps) => {
   const [time, setTime] = React.useState<Time>({
     hour: "",
@@ -56,7 +60,23 @@ const ReactTimePicker = ({
   });
   const [showTImeSelectArea, setShowTimeSelectArea] = React.useState(false);
 
-  const timeSelectAreaRef = React.useRef(null);
+  React.useEffect(() => {
+    if (!dateTime || !dateTime.getTime()) {
+      return;
+    }
+    const formattedTime = formatTime(
+      dateTime,
+      timeFormat({ withSeconds, format })
+    );
+    const timeHands = formattedTime.split(/[:\s]+/);
+    setTime((prevState) => ({
+      ...prevState,
+      hour: timeHands[0],
+      minute: timeHands[1],
+      ...(withSeconds && { second: timeHands[2] }),
+      ...(format === "12" && { meridiem: timeHands[3] }),
+    }));
+  }, []);
 
   const handleTimeSelect = (
     hand: "hour" | "minute" | "second" | "meridiem",
@@ -124,7 +144,6 @@ const ReactTimePicker = ({
         <div
           className="react-time-picker__time-select-area"
           tabIndex={0}
-          ref={timeSelectAreaRef}
           onBlur={(e) => {
             if (!e.relatedTarget) {
               setShowTimeSelectArea(false);

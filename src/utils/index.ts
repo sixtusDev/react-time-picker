@@ -5,11 +5,11 @@ export const regex = /^[0-9\b]+$/;
 interface TimeFormat
   extends Pick<ReactTimePickerProps, "withSeconds" | "format"> {}
 
-export const timeFormat = ({ withSeconds, format = "12" }: TimeFormat) => {
+export const timeFormat = ({ withSeconds, format }: TimeFormat) => {
   if (!withSeconds && format === "12") return "hh:mm a";
   if (!withSeconds && format === "24") return "hh:mm";
-  if (withSeconds && format === "12") return "hh:mm:ss a";
   if (withSeconds && format === "24") return "hh:mm:ss";
+  return "hh:mm:ss a";
 };
 
 interface ValidateHour extends Pick<ReactTimePickerProps, "format"> {

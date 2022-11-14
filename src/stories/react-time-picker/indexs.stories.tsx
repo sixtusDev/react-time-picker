@@ -6,5 +6,5 @@ import { ReactTimePicker } from "../../components";
 const stories = storiesOf("React time picker", module);
 
 stories.add("App", () => {
-  return <ReactTimePicker />;
+  return <ReactTimePicker time={new Date()} />;
 });
