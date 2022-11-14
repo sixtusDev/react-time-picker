@@ -52,13 +52,22 @@ const ReactTimePicker = ({
 
   return (
     <div className="react-time-picker__wrapper">
-      <div style={{ width: "150px", display: "flex" }}>
-        <Hour format={format} />
-        <div style={{ fontSize: "30px" }}>:</div>
+      <div
+        style={{
+          width: "150px",
+          display: "flex",
+          backgroundColor: "#fff",
+          border: "2px solid #000",
+          borderRadius: "3px",
+          padding: "3px",
+        }}
+      >
+        <Hour format={format} hour={time.hour} setTime={setTime} />
+        <div style={{ fontSize: "20px" }}>:</div>
         <Minute minute={time.minute} setTime={setTime} />
         {withSeconds && (
           <>
-            <div style={{ fontSize: "30px" }}>:</div>
+            <div style={{ fontSize: "20px" }}>:</div>
             <Second second={time.second} setTime={setTime} />
           </>
         )}

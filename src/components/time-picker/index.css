@@ -75,3 +75,13 @@
 .react-time-picker__meridiems::-webkit-scrollbar {
   display: none;
 }
+
+input {
+  border: none;
+  text-align: center;
+  font-size: 20px;
+}
+
+input:focus {
+  outline: 1px solid #000;
+}
