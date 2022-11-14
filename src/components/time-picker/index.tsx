@@ -50,6 +50,36 @@ const ReactTimePicker = ({
     ...(format === "12" && { meridiem: "" }),
   });
 
+  const handleTimeSelect = (
+    hand: "hour" | "minute" | "second" | "meridiem",
+    value: string
+  ) => {
+    if (hand === "hour") {
+      return setTime((prevState) => ({
+        ...prevState,
+        hour: value,
+      }));
+    }
+    if (hand === "minute") {
+      return setTime((prevState) => ({
+        ...prevState,
+        minute: value,
+      }));
+    }
+    if (hand === "second") {
+      return setTime((prevState) => ({
+        ...prevState,
+        second: value,
+      }));
+    }
+    if (hand === "meridiem") {
+      return setTime((prevState) => ({
+        ...prevState,
+        meridiem: value,
+      }));
+    }
+  };
+
   return (
     <div className="react-time-picker__wrapper">
       <div
@@ -81,28 +111,53 @@ const ReactTimePicker = ({
           <div className="react-time-picker__hours">
             {format === "12"
               ? hours12.map((hour) => (
-                  <div className="react-time-picker__hour">{hour}</div>
+                  <div
+                    className="react-time-picker__hour"
+                    onClick={() => handleTimeSelect("hour", hour)}
+                  >
+                    {hour}
+                  </div>
                 ))
               : hours24.map((hour) => (
-                  <div className="react-time-picker__hour">{hour}</div>
+                  <div
+                    className="react-time-picker__hour"
+                    onClick={() => handleTimeSelect("hour", hour)}
+                  >
+                    {hour}
+                  </div>
                 ))}
           </div>
           <div className="react-time-picker__minutes">
             {minutes.map((minute) => (
-              <div className="react-time-picker__minute">{minute}</div>
+              <div
+                className="react-time-picker__minute"
+                onClick={() => handleTimeSelect("minute", minute)}
+              >
+                {minute}
+              </div>
             ))}
           </div>
           {withSeconds && (
             <div className="react-time-picker__seconds">
               {seconds.map((second) => (
-                <div className="react-time-picker__second">{second}</div>
+                <div
+                  className="react-time-picker__second"
+                  onClick={() => handleTimeSelect("second", second)}
+                >
+                  {second}
+                </div>
               ))}
             </div>
           )}
           {format === "12" && (
             <div className="react-time-picker__meridiems">
               {meridiems.map((meridiem) => (
-                <div className="react-time-picker__meridiem">{meridiem}</div>
+                <div
+                  className="react-time-picker__meridiem"
+                  onClick={() => handleTimeSelect("meridiem", meridiem)}
+                >
+                  {meridiem}
+                </div>
               ))}
             </div>
           )}
