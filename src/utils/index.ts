@@ -65,3 +65,6 @@ export const isValidMeridiem = ({ value, meridiem }: IsValidMeridiem) => {
   }
   return false;
 };
+
+export const canAddLeadingZero = (value: number) =>
+  String(value).length === 1 && value < 10;
