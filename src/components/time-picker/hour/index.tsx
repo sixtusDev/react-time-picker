@@ -27,7 +27,7 @@ const Hour = ({ format, hour, setTime }: HourProps) => {
   };
 
   const onBlurHandler = () => {
-    if (canAddLeadingZero(hour)) {
+    if (canAddLeadingZero(Number(hour))) {
       setTime((prevState) => ({
         ...prevState,
         hour: `0${prevState.hour}`,
