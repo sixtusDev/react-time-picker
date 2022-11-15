@@ -46,6 +46,7 @@ const Hour = ({ format, hour, setTime }: HourProps) => {
       placeholder="--"
       onChange={onChangeHandler}
       onBlur={onBlurHandler}
+      onFocus={(e) => e.target.select()}
       style={{ width: "25%" }}
     />
   );

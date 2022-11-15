@@ -45,6 +45,7 @@ const Second = ({ second, setTime }: MinuteProps) => {
       placeholder="--"
       onChange={onChangeHandler}
       onBlur={onBlurHandler}
+      onFocus={(e) => e.target.select()}
       style={{ width: "25%" }}
     />
   );

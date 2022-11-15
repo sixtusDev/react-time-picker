@@ -24,6 +24,7 @@ const Meridiem = ({ meridiem, setTime }: MeridiemProps) => {
       placeholder="--"
       value={meridiem}
       onChange={onChangeHandler}
+      onFocus={(e) => e.target.select()}
       style={{ width: "25%" }}
     />
   );
