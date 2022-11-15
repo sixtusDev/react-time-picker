@@ -7,9 +7,10 @@ import "./index.css";
 interface HourProps extends Pick<ReactTimePickerProps, "format"> {
   hour: string;
   setTime: (cb: (time: Time) => Time) => void;
+  minuteRef: React.RefObject<HTMLInputElement>;
 }
 
-const Hour = ({ format, hour, setTime }: HourProps) => {
+const Hour = ({ format, hour, setTime, minuteRef }: HourProps) => {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     if (value === "") {
@@ -30,10 +31,16 @@ const Hour = ({ format, hour, setTime }: HourProps) => {
     if (canAddLeadingZero(hour)) {
       setTime((prevState) => ({
         ...prevState,
-        hour: `0${prevState.hour}`,
+        hour: Number(prevState.hour) === 0 ? "12" : `0${prevState.hour}`,
       }));
     }
   };
+
+  React.useEffect(() => {
+    if (hour.length === 2) {
+      minuteRef.current?.focus();
+    }
+  }, [hour]);
 
   return (
     <input

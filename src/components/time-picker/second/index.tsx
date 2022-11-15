@@ -9,9 +9,11 @@ import {
 interface MinuteProps extends Pick<ReactTimePickerProps, "format"> {
   second?: string;
   setTime: (cb: (value: Time) => Time) => void;
+  meridiemRef: React.RefObject<HTMLInputElement>;
+  secondRef: React.RefObject<HTMLInputElement>;
 }
 
-const Second = ({ second, setTime }: MinuteProps) => {
+const Second = ({ second, setTime, secondRef, meridiemRef }: MinuteProps) => {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
@@ -35,6 +37,12 @@ const Second = ({ second, setTime }: MinuteProps) => {
     }
   };
 
+  React.useEffect(() => {
+    if (second?.length === 2) {
+      meridiemRef.current?.focus();
+    }
+  }, [second]);
+
   return (
     <input
       type="text"
@@ -46,6 +54,7 @@ const Second = ({ second, setTime }: MinuteProps) => {
       onChange={onChangeHandler}
       onBlur={onBlurHandler}
       onFocus={(e) => e.target.select()}
+      ref={secondRef}
       style={{ width: "25%" }}
     />
   );

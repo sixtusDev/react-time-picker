@@ -60,6 +60,10 @@ const ReactTimePicker = ({
   });
   const [showTImeSelectArea, setShowTimeSelectArea] = React.useState(false);
 
+  const minuteRef = React.useRef(null);
+  const secondRef = React.useRef(null);
+  const meridiemRef = React.useRef(null);
+
   React.useEffect(() => {
     if (!dateTime || !dateTime.getTime()) {
       return;
@@ -126,18 +130,37 @@ const ReactTimePicker = ({
           }
         }}
       >
-        <Hour format={format} hour={time.hour} setTime={setTime} />
+        <Hour
+          format={format}
+          hour={time.hour}
+          setTime={setTime}
+          minuteRef={minuteRef}
+        />
         <div style={{ fontSize: "20px" }}>:</div>
-        <Minute minute={time.minute} setTime={setTime} />
+        <Minute
+          minute={time.minute}
+          setTime={setTime}
+          secondRef={secondRef}
+          minuteRef={minuteRef}
+        />
         {withSeconds && (
           <>
             <div style={{ fontSize: "20px" }}>:</div>
-            <Second second={time.second} setTime={setTime} />
+            <Second
+              second={time.second}
+              setTime={setTime}
+              meridiemRef={meridiemRef}
+              secondRef={secondRef}
+            />
           </>
         )}
         &nbsp;
         {format === "12" && (
-          <Meridiem meridiem={time.meridiem} setTime={setTime} />
+          <Meridiem
+            meridiem={time.meridiem}
+            setTime={setTime}
+            meridiemRef={meridiemRef}
+          />
         )}
       </div>
       {showTImeSelectArea && (
