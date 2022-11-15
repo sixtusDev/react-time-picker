@@ -1,5 +1,5 @@
-import React from "react";
-import { format as formatTime } from "date-fns";
+import React, { useEffect } from "react";
+import { format as formatTime, parse } from "date-fns";
 
 import Hour from "./hour";
 import Minute from "./minute";
@@ -49,8 +49,9 @@ const activeHandPickerStyle = {
 
 const ReactTimePicker = ({
   format = "12",
-  withSeconds = true,
+  withSeconds = false,
   time: dateTime,
+  onChange,
 }: ReactTimePickerProps) => {
   const [time, setTime] = React.useState<Time>({
     hour: "",
@@ -78,9 +79,32 @@ const ReactTimePicker = ({
       hour: timeHands[0],
       minute: timeHands[1],
       ...(withSeconds && { second: timeHands[2] }),
-      ...(format === "12" && { meridiem: timeHands[3] }),
+      ...(format === "12" && { meridiem: timeHands[timeHands.length - 1] }),
     }));
   }, []);
+
+  useEffect(() => {
+    const hands = Object.values(time);
+    if (onChange && hands.join("")) {
+      let timeString = "";
+      hands.forEach((hand, index) => {
+        if (hand === "AM" || hand === "PM") {
+          return (timeString = timeString.concat(` ${hand}`));
+        }
+        if (index === 0) {
+          return (timeString = timeString.concat(`${hand}`));
+        }
+        timeString = timeString.concat(`:${hand}`);
+      });
+
+      const formattedDate = parse(
+        timeString,
+        timeFormat({ withSeconds, format }),
+        dateTime!
+      );
+      onChange(formattedDate);
+    }
+  }, [time]);
 
   const handleTimeSelect = (
     hand: "hour" | "minute" | "second" | "meridiem",
