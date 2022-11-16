@@ -10,7 +10,7 @@ import { timeFormat } from "../../utils";
 import "./index.css";
 export interface ReactTimePickerProps {
   disabled?: boolean;
-  onChange?: (time?: Date) => void;
+  onChange?: ({ dateTime, time }: { dateTime: Date; time: string }) => void;
   value?: Date;
   withSeconds?: boolean;
   format?: "12" | "24";
@@ -49,7 +49,7 @@ const activeHandPickerStyle = {
 
 const ReactTimePicker = ({
   format = "12",
-  withSeconds = false,
+  withSeconds = true,
   time: dateTime,
   onChange,
 }: ReactTimePickerProps) => {
@@ -96,13 +96,12 @@ const ReactTimePicker = ({
         }
         timeString = timeString.concat(`:${hand}`);
       });
-
       const formattedDate = parse(
         timeString,
         timeFormat({ withSeconds, format }),
-        dateTime!
+        dateTime || new Date()
       );
-      onChange(formattedDate);
+      onChange({ dateTime: formattedDate, time: timeString });
     }
   }, [time]);
 
