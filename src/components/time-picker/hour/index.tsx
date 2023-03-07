@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactTimePickerProps, Time } from "..";
-import { canAddLeadingZero, regex, validateHour } from "../../../utils";
+import { canAddLeadingZero, regex, isValidHour } from "../../../utils";
 
 import "./index.css";
 
@@ -13,18 +13,22 @@ interface HourProps extends Pick<ReactTimePickerProps, "format"> {
 const Hour = ({ format, hour, setTime, minuteRef }: HourProps) => {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    if (value === "") {
-      return setTime((prevState) => ({
-        ...prevState,
-        hour: value,
-      }));
-    }
-    if (regex.test(value) && validateHour({ hour, format, value })) {
-      setTime((prevState) => ({
-        ...prevState,
-        hour: value,
-      }));
-    }
+    setTime((prevState) => ({
+      ...prevState,
+      hour: value,
+    }));
+    // if (value === "") {
+    //   return setTime((prevState) => ({
+    //     ...prevState,
+    //     hour: value,
+    //   }));
+    // }
+    // if (regex.test(value) && isValidHour({ hour, format, value })) {
+    //   setTime((prevState) => ({
+    //     ...prevState,
+    //     hour: value,
+    //   }));
+    // }
   };
 
   const onBlurHandler = () => {
@@ -36,11 +40,11 @@ const Hour = ({ format, hour, setTime, minuteRef }: HourProps) => {
     }
   };
 
-  React.useEffect(() => {
-    if (hour.length === 2) {
-      minuteRef.current?.focus();
-    }
-  }, [hour]);
+  // React.useEffect(() => {
+  //   if (hour.length === 2) {
+  //     minuteRef.current?.focus();
+  //   }
+  // }, [hour]);
 
   return (
     <input
@@ -48,7 +52,7 @@ const Hour = ({ format, hour, setTime, minuteRef }: HourProps) => {
       className=""
       min={format === "12" ? 1 : 0}
       max={format === "12" ? 12 : 24}
-      maxLength={2}
+      // maxLength={2}
       value={hour}
       placeholder="--"
       onChange={onChangeHandler}

@@ -12,12 +12,12 @@ export const timeFormat = ({ withSeconds, format }: TimeFormat) => {
   return "hh:mm:ss a";
 };
 
-interface ValidateHour extends Pick<ReactTimePickerProps, "format"> {
+interface IsValidHour extends Pick<ReactTimePickerProps, "format"> {
   hour: string;
   value: string;
 }
 
-export const validateHour = ({ hour, format, value }: ValidateHour) => {
+export const isValidHour = ({ hour, format, value }: IsValidHour) => {
   if (format === "12") {
     if (hour.length === 1 && Number(value) === 0) {
       return false;

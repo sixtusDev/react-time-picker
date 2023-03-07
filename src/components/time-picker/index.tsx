@@ -85,6 +85,7 @@ const ReactTimePicker = ({
 
   useEffect(() => {
     const hands = Object.values(time);
+    // if()
     if (onChange && hands.join("")) {
       let timeString = "";
       hands.forEach((hand, index) => {
@@ -137,6 +138,13 @@ const ReactTimePicker = ({
 
   return (
     <div className="react-time-picker__wrapper">
+      <input
+        type="time"
+        // value="00:00"
+        onChange={(e) => {
+          console.log(e.target.value);
+        }}
+      />
       <div
         style={{
           width: "150px",
@@ -177,13 +185,15 @@ const ReactTimePicker = ({
             />
           </>
         )}
-        &nbsp;
         {format === "12" && (
-          <Meridiem
-            meridiem={time.meridiem}
-            setTime={setTime}
-            meridiemRef={meridiemRef}
-          />
+          <>
+            &nbsp;
+            <Meridiem
+              meridiem={time.meridiem}
+              setTime={setTime}
+              meridiemRef={meridiemRef}
+            />
+          </>
         )}
       </div>
       {showTImeSelectArea && (
